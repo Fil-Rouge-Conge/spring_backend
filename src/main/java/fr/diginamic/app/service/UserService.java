@@ -1,6 +1,6 @@
-package com.example.demo.service;
+package fr.diginamic.app.service;
 
-import com.example.demo.model.User;
+import fr.diginamic.app.model.User;
 
 import java.util.List;
 import java.util.Optional;

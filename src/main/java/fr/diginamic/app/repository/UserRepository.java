@@ -1,6 +1,6 @@
-package com.example.demo.repository;
+package fr.diginamic.app.repository;
 
-import com.example.demo.model.User;
+import fr.diginamic.app.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

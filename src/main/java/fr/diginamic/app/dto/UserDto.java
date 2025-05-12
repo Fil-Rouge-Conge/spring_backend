@@ -1,8 +1,5 @@
-package com.example.demo.dot;
+package fr.diginamic.app.dto;
 
-import lombok.Data;
-
-@Data
 public class UserDto {
     private Long id;
     private String lastName;
