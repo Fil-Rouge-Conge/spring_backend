@@ -20,7 +20,7 @@ public class AppApplication {
 	}
 
 	@Bean
-	CommandLineRunner run(UserRepository userRepository, DayOffRepository dayOffRepository, PersonalDayOffRepository personalDayOffRepository, CommonDayOffRepository commonDayOffRepository) {
+	CommandLineRunner run(EmployeeRepository employeeRepository, DayOffRepository dayOffRepository, PersonalDayOffRepository personalDayOffRepository, CommonDayOffRepository commonDayOffRepository) {
 		return args -> {
 			Employee user = new Employee("Ciel", "Madrigal", "email", "password", Role.EMPLOYEE, "token");
 			employeeRepository.save(user);
