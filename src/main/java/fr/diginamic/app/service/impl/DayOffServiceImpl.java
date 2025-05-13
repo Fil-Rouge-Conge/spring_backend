@@ -2,7 +2,7 @@ package fr.diginamic.app.service.impl;
 
 import fr.diginamic.app.model.DayOff;
 import fr.diginamic.app.repository.DayOffRepository;
-import fr.diginamic.app.repository.UserRepository;
+import fr.diginamic.app.repository.EmployeeRepository;
 import fr.diginamic.app.service.DayOffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class DayOffServiceImpl implements DayOffService {
     private DayOffRepository dayOffRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private EmployeeRepository employeeRepository;
 
     @Override
     public DayOff save(DayOff dayOff) {
@@ -36,7 +36,7 @@ public class DayOffServiceImpl implements DayOffService {
 
     @Override
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        employeeRepository.deleteById(id);
     }
 
 }
