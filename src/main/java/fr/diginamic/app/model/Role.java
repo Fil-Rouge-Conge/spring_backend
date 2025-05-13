@@ -1,7 +1,7 @@
 package fr.diginamic.app.model;
 
 public enum Role {
-    EMPLOYE,
+    EMPLOYEE,
     MANAGER,
     ADMIN
 }
