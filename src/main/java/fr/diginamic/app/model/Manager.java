@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 @Entity
 @DiscriminatorValue("MANAGER")
 public class Manager extends Employe {
-    // Ajouter ici des attributs propres au Manager si besoin.
 
     public Manager() {
         super();
