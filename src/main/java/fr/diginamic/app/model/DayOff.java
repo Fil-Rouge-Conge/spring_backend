@@ -23,20 +23,15 @@ public class DayOff {
     private String reason;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
-    private Type type;
-
-    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status;
 
     public DayOff() {}
 
-    public DayOff(LocalDate beginningDate, LocalDate endDate, String reason, Type type, Status status) {
+    public DayOff(LocalDate beginningDate, LocalDate endDate, String reason, Status status) {
         this.beginningDate = beginningDate;
         this.endDate = endDate;
         this.reason = reason;
-        this.type = type;
         this.status = status;
     }
 
@@ -70,14 +65,6 @@ public class DayOff {
 
     public void setReason(String reason) {
         this.reason = reason;
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
     }
 
     public Status getStatus() {

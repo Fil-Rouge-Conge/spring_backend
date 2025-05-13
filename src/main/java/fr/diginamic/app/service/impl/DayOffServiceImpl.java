@@ -12,8 +12,10 @@ import java.util.Optional;
 
 @Service
 public class DayOffServiceImpl implements DayOffService {
+
     @Autowired
     private DayOffRepository dayOffRepository;
+
     @Autowired
     private UserRepository userRepository;
 
