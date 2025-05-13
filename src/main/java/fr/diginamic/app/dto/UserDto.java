@@ -5,4 +5,6 @@ public class UserDto {
     private String lastName;
     private String firstName;
     private String email;
+    private float daysoffBalance;
+    private float emplRttBalance;
 }
