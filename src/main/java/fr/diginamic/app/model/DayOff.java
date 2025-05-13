@@ -1,0 +1,90 @@
+package fr.diginamic.app.model;
+
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "dayoffs")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class DayOff {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "beginning_date", nullable = false)
+    private LocalDate beginningDate;
+
+    @Column(name = "end_date", nullable = false)
+    private LocalDate endDate;
+
+    @Column(name = "reason")
+    private String reason;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false)
+    private Type type;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private Status status;
+
+    public DayOff() {}
+
+    public DayOff(LocalDate beginningDate, LocalDate endDate, String reason, Type type, Status status) {
+        this.beginningDate = beginningDate;
+        this.endDate = endDate;
+        this.reason = reason;
+        this.type = type;
+        this.status = status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getBeginningDate() {
+        return beginningDate;
+    }
+
+    public void setBeginningDate(LocalDate beginningDate) {
+        this.beginningDate = beginningDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+}
