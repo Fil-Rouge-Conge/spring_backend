@@ -18,7 +18,11 @@ public class Employe extends User {
         super();
     }
 
-    public Employe(float daysoffBalance, float emplRttBalance) {}
+    public Employe(float daysoffBalance, float emplRttBalance) {
+        super();
+        this.daysoffBalance = daysoffBalance;
+        this.emplRttBalance = emplRttBalance;
+    }
 
     public Employe(String lastName, String firstName, String email, String password, Role role, String token, float daysoffBalance, float emplRttBalance){
         super(lastName, firstName, email, password, role, token);
