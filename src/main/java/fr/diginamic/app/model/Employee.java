@@ -3,9 +3,9 @@ package fr.diginamic.app.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "employees")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type")
+@DiscriminatorColumn(name = "employee_type")
 public class Employee {
 
     @Id
