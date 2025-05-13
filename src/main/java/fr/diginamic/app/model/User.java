@@ -18,21 +18,29 @@ public class User {
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
+
     @Column(name="email", unique = true, nullable = false)
     private String email;
 
     @Column(name="password", nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role")
-    private Role role;
-
+    @Column(name="token", unique=true)
     private String token;
 
     public User(){}
 
-    public User(String lastName, String firstName, String email, String password, Role role) {}
+    public User(String lastName, String firstName, String email, String password, Role role, String token) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.token = token;
+    }
 
     public Long getId() {
         return id;

@@ -18,9 +18,11 @@ public class AppApplication {
 	@Bean
 	CommandLineRunner run(UserRepository userRepository) {
 		return args -> {
-			userRepository.save(new User("Wonderlands", "Alice", "a.wonderlands@gmail.com", "r@bbit", Role.EMPLOYE));
+			User user = new User("Ciel", "Madrigal", "email", "password", Role.EMPLOYE, "token");
+			userRepository.save(user);
 			System.out.println("User inserted!");
 		};
 	}
-
 }
+
+
