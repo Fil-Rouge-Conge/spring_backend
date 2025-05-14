@@ -12,8 +12,6 @@ import java.util.Optional;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Optional<Employee> findByEmail(String email);
-    List<Employee> findByLastName(String name);
-    List<Employee> findByFirstName(String name);
     List<Employee> findByEmailContaining(String email);
     List<Employee> findByRole(Role role);
     List<Employee> findByDepartement(Departement departement);

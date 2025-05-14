@@ -2,42 +2,76 @@ package fr.diginamic.app.model;
 
 import jakarta.persistence.*;
 
+/**
+ * Représente un employé
+ * Le nom de sa table en base de données est " employees "
+ */
 @Entity
 @Table(name = "employees")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "employee_type")
 public class Employee {
 
+    /**
+     * Identifiant
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Nom de famille
+     */
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    /**
+     * Prénom
+     */
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
+    /***
+     * Role
+     */
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
 
+    /**
+     * Département
+     */
     @Enumerated(EnumType.STRING)
     @Column(name = "departement")
     private Departement departement;
 
+    /**
+     * Adresse mail
+     */
     @Column(name="email", unique = true, nullable = false)
     private String email;
 
+    /**
+     * Mot de passe
+     */
     @Column(name="password", nullable = false)
     private String password;
 
+    /**
+     * Solde de congé payé
+     */
     @Column(name = "daysoff_balance")
     private float daysoffBalance;
 
+    /**
+     * Solde de RTT
+     */
     @Column(name = "empl_rtt_balance")
     private float emplRttBalance;
 
+    /**
+     * Token
+     */
     @Column(name="token", unique=true)
     private String token;
 

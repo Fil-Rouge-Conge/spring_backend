@@ -32,14 +32,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findById(id);
     }
 
-    public List<Employee> findByFirstName(String firstName) {
-        return employeeRepository.findByFirstName(firstName);
-    }
-
-    public List<Employee> findByLastName(String name){
-        return employeeRepository.findByLastName(name);
-    }
-
     public Optional<Employee> findByEmail(String email){
         return employeeRepository.findByEmail(email);
     }
