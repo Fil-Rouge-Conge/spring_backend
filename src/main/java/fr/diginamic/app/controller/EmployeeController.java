@@ -61,31 +61,6 @@ public class EmployeeController {
     }
 
     /**
-     * Permet de cherché un employé par son email complet
-     * @param email adresse mail
-     * @return un Employé
-     */
-    @GetMapping("/email/{email}")
-    public EmployeeDto getEmployeeByEmail(@PathVariable String email) {
-        return employeService.findByEmail(email)
-                .map(EmployeeMapper::toDto)
-                .orElse(null);
-    }
-
-    /**
-     * Permet de cherché un employé par un fragment de son adresse mail
-     * @param email fragment adresse mail
-     * @return liste d'employé
-     */
-    @GetMapping("/emaillike/{email}")
-    public List<EmployeeDto> getEmployeeByEmailContaining(@PathVariable String email) {
-        return employeService.findByEmailContaining(email)
-                .stream()
-                .map(EmployeeMapper::toDto)
-                .collect(Collectors.toList());
-    }
-
-    /**
      * Récupère la liste des employés selon leur role
      * @param role nom du role
      * @return list d'employé
