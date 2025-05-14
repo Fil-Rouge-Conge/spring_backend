@@ -12,5 +12,7 @@ public interface CommonDayOffService {
 
     Optional<CommonDayOff> findById(Long id);
 
+    CommonDayOff update(Long id, CommonDayOff commonDayOff);
+
     void delete(Long id);
 }
