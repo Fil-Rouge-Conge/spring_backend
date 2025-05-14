@@ -16,7 +16,7 @@ public class PersonalDayOff extends DayOff{
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Employee employee;
 
     public PersonalDayOff() {}
 
@@ -34,11 +34,11 @@ public class PersonalDayOff extends DayOff{
         this.personalDayOffType = personalDayOffType;
     }
 
-    public User getUser() {
-        return user;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }
