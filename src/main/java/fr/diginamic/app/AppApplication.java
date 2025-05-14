@@ -9,11 +9,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 
 @SpringBootApplication
 public class AppApplication {
+	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppApplication.class, args);
@@ -22,7 +25,7 @@ public class AppApplication {
 	@Bean
 	CommandLineRunner run(EmployeeRepository employeeRepository, DayOffRepository dayOffRepository, PersonalDayOffRepository personalDayOffRepository, CommonDayOffRepository commonDayOffRepository) {
 		return args -> {
-			Employee user = new Employee("Ciel", "Madrigal", "email", "password", Role.EMPLOYEE, "token");
+			Employee user = new Employee("Ciel", "Madrigal", "ciel.m@gmail.com", encoder.encode("p@ssw0rd"), Role.EMPLOYEE, "token");
 			employeeRepository.save(user);
 			System.out.println("User inserted!");
 			Employee empl = new Employee("To Heaven", "Stairway", "stairway@toheaven.gg", "heaven", Role.EMPLOYEE,Departement.IT , "tokenToHeaven", 2, 1);
@@ -47,6 +50,8 @@ public class AppApplication {
 					LocalDate.of(2025, 12, 25),LocalDate.of(2025, 12, 25),"Jour de Noël",Status.APPROVED,"Noël", CommonDayOffType.HOLIDAY);
 			commonDayOffRepository.save(commonDayOff);
 			System.out.println("CommonDayOff inserted!");
+			System.out.println(employeeRepository.findByEmail("matt@moissa.gg"));
+			System.out.println("employee found");
 		};
 	}
 }
