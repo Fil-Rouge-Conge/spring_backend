@@ -1,16 +1,22 @@
 package fr.diginamic.app.service.impl;
 
+import fr.diginamic.app.dto.CommonDayOffDto;
 import fr.diginamic.app.model.CommonDayOff;
+import fr.diginamic.app.model.Status;
 import fr.diginamic.app.repository.CommonDayOffRepository;
 import fr.diginamic.app.service.CommonDayOffService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CommonDayOffServiceImpl implements CommonDayOffService {
+
     @Autowired
     private CommonDayOffRepository commonDayOffRepository;
 
@@ -30,9 +36,41 @@ public class CommonDayOffServiceImpl implements CommonDayOffService {
     }
 
     @Override
+    public CommonDayOff update (Long id, CommonDayOff commonDayOff) {
+        CommonDayOff existing = commonDayOffRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("Common Day Off not found"));
+        if (existing.getStatus().name().equals("APPROVED") && existing.getCommonDayOffType().name().equals("RTT_EMPLOYER")) {
+            throw new IllegalArgumentException("Cannot modify a validated RTT");
+        }
+        validateBusinessRules(commonDayOff);
+        commonDayOff.setStatus(Status.INITIAL);
+        return commonDayOffRepository.save(commonDayOff);
+    }
+
+    @Override
     public void delete(Long id) {
+        CommonDayOff existing = commonDayOffRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Common Day Off not found"));
+
+        if (existing.getBeginningDate().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("Cannot delete a day off in the past");
+        }
         commonDayOffRepository.deleteById(id);
     }
 
+    private void validateBusinessRules(CommonDayOff commonDayOff) {
+        if (commonDayOff.getBeginningDate().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("Cannot create common day off in the past");
+        }
+
+        if (commonDayOffRepository.existsByBeginningDate(commonDayOff.getBeginningDate())) {
+            throw new IllegalArgumentException("Another common day off already exists on this date");
+        }
+
+        DayOfWeek day = commonDayOff.getBeginningDate().getDayOfWeek();
+        if (commonDayOff.getCommonDayOffType().name().equals("RTT_EMPLOYER") && (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY)) {
+            throw new IllegalArgumentException("RTT cannot be set on weekends");
+        }
+    }
 
 }

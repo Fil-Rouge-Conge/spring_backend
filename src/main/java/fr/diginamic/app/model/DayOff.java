@@ -6,11 +6,11 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "dayoffs")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class DayOff {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class DayOff {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "beginning_date", nullable = false)
