@@ -11,8 +11,6 @@ public interface EmployeeService {
     Employee save(Employee user);
     List<Employee> findAll();
     Optional<Employee> findById(Long id);
-    Optional<Employee> findByEmail(String email);
-    List<Employee> findByEmailContaining(String email);
     List<Employee> findByRole(Role role);
     List<Employee> findByDepartement(Departement department);
     void delete(Long id);

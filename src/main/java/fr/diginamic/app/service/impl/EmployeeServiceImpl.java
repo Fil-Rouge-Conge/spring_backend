@@ -32,14 +32,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findById(id);
     }
 
-    public Optional<Employee> findByEmail(String email){
-        return employeeRepository.findByEmail(email);
-    }
-
-    public List<Employee> findByEmailContaining(String email) {
-        return employeeRepository.findByEmailContaining(email);
-    }
-
     public List<Employee> findByDepartement(Departement departement) {
         return employeeRepository.findByDepartement(departement);
     }
