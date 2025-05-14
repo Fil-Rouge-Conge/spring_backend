@@ -1,6 +1,7 @@
 package fr.diginamic.app.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,9 +18,9 @@ public class HelloController {
      * @return {@link ResponseEntity}
      */
     @GetMapping("/hello")
-//    @Secured("ADMIN")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<?> getHello() {
-        return ResponseEntity.ok("Hello");
+        return ResponseEntity.ok("Hello Admin");
     }
 
     /** Endpoint sécurisé pour les profils USER
@@ -27,7 +28,11 @@ public class HelloController {
      */
     @GetMapping("/hi")
 //    @Secured("USER")
+    @Secured("ROLE_EMPLOYEE")
     public ResponseEntity<?> getHi() {
-        return ResponseEntity.ok("Hi");
+        return ResponseEntity.ok("Hi Employee");
     }
+
+    @GetMapping("/ave")
+    public ResponseEntity<?> getAve() { return ResponseEntity.ok("Ave Cesar"); }
 }

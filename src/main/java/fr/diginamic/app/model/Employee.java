@@ -37,29 +37,24 @@ public class Employee {
     @Column(name = "empl_rtt_balance")
     private float emplRttBalance;
 
-    @Column(name="token", unique=true)
-    private String token;
-
 
     public Employee(){}
 
-    public Employee(String lastName, String firstName, String email, String password, Role role, String token) {
+    public Employee(String lastName, String firstName, String email, String password, Role role) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
         this.password = password;
         this.role = role;
-        this.token = token;
     }
 
-    public Employee(String lastName, String firstName, String email, String password, Role role, Departement departement, String token, float daysoffBalance, float emplRttBalance) {
+    public Employee(String lastName, String firstName, String email, String password, Role role, Departement departement, float daysoffBalance, float emplRttBalance) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
         this.password = password;
         this.role = role;
         this.departement = departement;
-        this.token = token;
         this.daysoffBalance = daysoffBalance;
         this.emplRttBalance = emplRttBalance;
     }
@@ -112,10 +107,6 @@ public class Employee {
         this.role = role;
     }
 
-    public String getToken() {
-        return token;
-    }
-
     public float getDaysoffBalance() {
         return daysoffBalance;
     }
@@ -132,9 +123,6 @@ public class Employee {
         this.emplRttBalance = emplRttBalance;
     }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
 
     //TODO
     // Mettre un retour en boolean pour vérifier que tout c'est bien passé ?

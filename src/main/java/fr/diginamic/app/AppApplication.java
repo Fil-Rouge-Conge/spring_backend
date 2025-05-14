@@ -25,16 +25,16 @@ public class AppApplication {
 	@Bean
 	CommandLineRunner run(EmployeeRepository employeeRepository, DayOffRepository dayOffRepository, PersonalDayOffRepository personalDayOffRepository, CommonDayOffRepository commonDayOffRepository) {
 		return args -> {
-			Employee user = new Employee("Ciel", "Madrigal", "ciel.m@gmail.com", encoder.encode("p@ssw0rd"), Role.EMPLOYEE, "token");
+			Employee user = new Employee("Ciel", "Madrigal", "ciel.m@gmail.com", encoder.encode("p@ssw0rd"), Role.EMPLOYEE);
 			employeeRepository.save(user);
 			System.out.println("User inserted!");
-			Employee empl = new Employee("To Heaven", "Stairway", "stairway@toheaven.gg", "heaven", Role.EMPLOYEE,Departement.IT , "tokenToHeaven", 2, 1);
+			Employee empl = new Employee("To Heaven", "Stairway", "stairway@toheaven.gg", encoder.encode("heaven"), Role.EMPLOYEE,Departement.IT , 2, 1);
 			employeeRepository.save(empl);
 			System.out.println("Employe inserted!");
-			Employee mng = new Employee("Moissa", "Matt", "matt@moissa.gg", "moissa", Role.MANAGER, Departement.IT, "MMoaiTSTSa", 10, 1);
+			Employee mng = new Employee("Moissa", "Matt", "matt@moissa.gg", encoder.encode("moissa"), Role.MANAGER, Departement.IT, 10, 1);
 			employeeRepository.save(mng);
 			System.out.println("Manager inserted!");
-			Employee adm = new Employee("Rouille", "Pat", "pat@rouille.gg", "Patrouille", Role.ADMIN, Departement.HR , "PTRLL", 5, 0);
+			Employee adm = new Employee("Rouille", "Pat", "pat@rouille.gg", encoder.encode("Patrouille"), Role.ADMIN, Departement.HR , 5, 0);
 			employeeRepository.save(adm);
 
 			DayOff dayOff = new DayOff(LocalDate.of(2025,6,10),LocalDate.of(2025,6,12), "Vacances d'été", Status.INITIAL);
