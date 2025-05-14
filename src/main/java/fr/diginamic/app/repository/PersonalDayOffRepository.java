@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PersonalDayOffRepository extends JpaRepository<PersonalDayOff, Long> {
-    List<PersonalDayOff> findByUser_Id(Long userId);
+    List<PersonalDayOff> findByEmployee_Id(Long employeeId);
 }
