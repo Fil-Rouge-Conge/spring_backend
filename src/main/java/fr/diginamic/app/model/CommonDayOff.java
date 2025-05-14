@@ -24,7 +24,7 @@ public class CommonDayOff extends DayOff{
             joinColumns = @JoinColumn(name = "common_dayoff_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> users;
+    private List<Employee> employees;
 
     public CommonDayOff(){}
 
@@ -51,11 +51,11 @@ public class CommonDayOff extends DayOff{
         this.commonDayOffType = commonDayOffType;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }
