@@ -113,6 +113,10 @@ public class Employee {
         this.role = role;
     }
 
+    public Departement getDepartement() { return departement; }
+
+    public void setDepartement(Departement departement) { this.departement = departement; }
+
     public String getToken() {
         return token;
     }
