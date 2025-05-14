@@ -6,9 +6,17 @@ import java.time.LocalDate;
 
 @Entity
 public class PersonalDayOff extends DayOff{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Enumerated(EnumType.STRING)
     @Column(name = "personalDayOffType", nullable = false)
     private PersonalDayOffType personalDayOffType;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public PersonalDayOff() {}
 
@@ -24,5 +32,13 @@ public class PersonalDayOff extends DayOff{
 
     public void setPersonalDayOffType(PersonalDayOffType personalDayOffType) {
         this.personalDayOffType = personalDayOffType;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

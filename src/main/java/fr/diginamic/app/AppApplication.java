@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @SpringBootApplication
 public class AppApplication {
@@ -34,17 +35,19 @@ public class AppApplication {
 			Employee adm = new Employee("Rouille", "Pat", "pat@rouille.gg", "Patrouille", Role.ADMIN, Departement.HR , "PTRLL", 5, 0);
 			employeeRepository.save(adm);
 
-			DayOff dayOff = new DayOff(LocalDate.of(2025,6,10),LocalDate.of(2025,6,12), "Vacances d'été", Status.INITIAL);
-			dayOffRepository.save(dayOff);
-			System.out.println("DayOff inserted!");
+//			DayOff dayOff = new DayOff(LocalDate.of(2025,6,10),LocalDate.of(2025,6,12), "Vacances d'été", Status.INITIAL);
+//			dayOffRepository.save(dayOff);
+//			System.out.println("DayOff inserted!");
 
 			PersonalDayOff personalDayOff = new PersonalDayOff(
 					LocalDate.of(2025, 8, 15),LocalDate.of(2025, 8, 15),"Raison perso", Status.INITIAL, PersonalDayOffType.RTT_EMPLOYEE);
+			personalDayOff.setUser(empl);
 			personalDayOffRepository.save(personalDayOff);
 			System.out.println("PersonalDayOff inserted!");
 
 			CommonDayOff commonDayOff = new CommonDayOff(
 					LocalDate.of(2025, 12, 25),LocalDate.of(2025, 12, 25),"Jour de Noël",Status.APPROVED,"Noël", CommonDayOffType.HOLIDAY);
+			commonDayOff.setUsers(List.of(empl,mng,adm));
 			commonDayOffRepository.save(commonDayOff);
 			System.out.println("CommonDayOff inserted!");
 		};

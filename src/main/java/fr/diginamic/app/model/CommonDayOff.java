@@ -3,16 +3,28 @@ package fr.diginamic.app.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class CommonDayOff extends DayOff{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "caption")
     private String caption;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "commonDayOffType", nullable = false)
     private CommonDayOffType commonDayOffType;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_common_dayoff",
+            joinColumns = @JoinColumn(name = "common_dayoff_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> users;
 
     public CommonDayOff(){}
 
@@ -37,5 +49,13 @@ public class CommonDayOff extends DayOff{
 
     public void setCommonDayOffType(CommonDayOffType commonDayOffType) {
         this.commonDayOffType = commonDayOffType;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
