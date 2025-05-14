@@ -11,8 +11,6 @@ public interface EmployeeService {
     Employee save(Employee user);
     List<Employee> findAll();
     Optional<Employee> findById(Long id);
-    List<Employee> findByFirstName(String firstName);
-    List<Employee> findByLastName(String lastName);
     Optional<Employee> findByEmail(String email);
     List<Employee> findByEmailContaining(String email);
     List<Employee> findByRole(Role role);
