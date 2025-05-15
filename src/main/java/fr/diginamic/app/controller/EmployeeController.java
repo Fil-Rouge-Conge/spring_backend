@@ -33,7 +33,7 @@ public class EmployeeController {
      */
     @PostMapping
     @Secured("ROLE_ADMIN")
-    public EmployeeDto createEmploye(@RequestBody EmployeeDto employeDto) {
+    public EmployeeDto createEmployee(@RequestBody EmployeeDto employeDto) {
         Employee employee = EmployeeMapper.toEntity(employeDto);
         return EmployeeMapper.toDto(employeService.save(employee));
     }
@@ -90,6 +90,20 @@ public class EmployeeController {
                 .stream()
                 .map(EmployeeMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Met à jour les informations d’un employé.
+     *
+     * @param id identifiant de l’employé à modifier
+     * @param employeeDto les nouvelles données
+     * @return l’employé modifié
+     */
+    @PutMapping("/id/{id}")
+    @Secured("ROLE_ADMIN")
+    public EmployeeDto updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeeDto) {
+        Employee updated = employeService.update(id, EmployeeMapper.toEntity(employeeDto));
+        return EmployeeMapper.toDto(updated);
     }
 
     /**

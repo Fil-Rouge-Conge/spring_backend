@@ -5,6 +5,7 @@ import fr.diginamic.app.model.Employee;
 import fr.diginamic.app.model.Role;
 import fr.diginamic.app.repository.EmployeeRepository;
 import fr.diginamic.app.service.EmployeeService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public List<Employee> findByRole(Role role) {
         return employeeRepository.findByRole(role);
+    }
+
+    @Override
+    public Employee update(Long id, Employee updatedEmployee) {
+        Employee existing = employeeRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Employé introuvable avec l'id : " + id));
+
+        existing.setLastName(updatedEmployee.getLastName());
+        existing.setFirstName(updatedEmployee.getFirstName());
+        existing.setEmail(updatedEmployee.getEmail());
+        existing.setPassword(updatedEmployee.getPassword());
+        existing.setRole(updatedEmployee.getRole());
+        existing.setDepartement(updatedEmployee.getDepartement());
+        existing.setDaysoffBalance(updatedEmployee.getDaysoffBalance());
+        existing.setEmplRttBalance(updatedEmployee.getEmplRttBalance());
+
+        return employeeRepository.save(existing);
     }
 
     @Override

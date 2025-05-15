@@ -2,8 +2,10 @@ package fr.diginamic.app.service.impl;
 
 import fr.diginamic.app.dto.CommonDayOffDto;
 import fr.diginamic.app.model.CommonDayOff;
+import fr.diginamic.app.model.Employee;
 import fr.diginamic.app.model.Status;
 import fr.diginamic.app.repository.CommonDayOffRepository;
+import fr.diginamic.app.repository.EmployeeRepository;
 import fr.diginamic.app.service.CommonDayOffService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,12 @@ public class CommonDayOffServiceImpl implements CommonDayOffService {
     @Autowired
     private CommonDayOffRepository commonDayOffRepository;
 
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
     @Override
     public CommonDayOff save(CommonDayOff commonDayOff) {
+        validateBusinessRules(commonDayOff);
         return commonDayOffRepository.save(commonDayOff);
     }
 
@@ -39,11 +45,16 @@ public class CommonDayOffServiceImpl implements CommonDayOffService {
     public CommonDayOff update (Long id, CommonDayOff commonDayOff) {
         CommonDayOff existing = commonDayOffRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Common Day Off not found"));
-        if (existing.getStatus().name().equals("APPROVED") && existing.getCommonDayOffType().name().equals("RTT_EMPLOYER")) {
+        if (existing.getStatus() == Status.APPROVED && existing.getCommonDayOffType().name().equals("RTT_EMPLOYER")) {
             throw new IllegalArgumentException("Cannot modify a validated RTT");
         }
         validateBusinessRules(commonDayOff);
-        commonDayOff.setStatus(Status.INITIAL);
+        existing.setBeginningDate(commonDayOff.getBeginningDate());
+        existing.setEndDate(commonDayOff.getEndDate());
+        existing.setReason(commonDayOff.getReason());
+        existing.setCaption(commonDayOff.getCaption());
+        existing.setCommonDayOffType(commonDayOff.getCommonDayOffType());
+        existing.setStatus(Status.INITIAL);
         return commonDayOffRepository.save(commonDayOff);
     }
 
@@ -54,6 +65,13 @@ public class CommonDayOffServiceImpl implements CommonDayOffService {
 
         if (existing.getBeginningDate().isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("Cannot delete a day off in the past");
+        }
+        if (existing.getCommonDayOffType().name().equals("RTT_EMPLOYER") && existing.getStatus() == Status.APPROVED) {
+            List<Employee> employees = employeeRepository.findAll();
+            for (Employee employee : employees) {
+                employee.setEmplRttBalance(employee.getEmplRttBalance() + 1);
+                employeeRepository.save(employee);
+            }
         }
         commonDayOffRepository.deleteById(id);
     }
