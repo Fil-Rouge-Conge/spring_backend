@@ -33,7 +33,7 @@ public class PersonalDayOffServiceImpl implements PersonalDayOffService {
     }
 
     @Override
-    public List<PersonalDayOff> findByUserId(Long employeeId) {
+    public List<PersonalDayOff> findByEmployeeId(Long employeeId) {
         return personalDayOffRepository.findByEmployee_Id(employeeId);
     }
 
