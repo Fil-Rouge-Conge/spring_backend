@@ -4,24 +4,43 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
+/**
+ * Représente un congé
+ * Le nom de sa table en base de données est " dayoffs "
+ */
 @Entity
 @Table(name = "dayoffs")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class DayOff {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class DayOff {
 
+    /**
+     * Identifiant
+     */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     * Date de début
+     */
     @Column(name = "beginning_date", nullable = false)
     private LocalDate beginningDate;
 
+    /**
+     * Date de fin
+     */
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
+    /**
+     * Raison
+     */
     @Column(name = "reason")
     private String reason;
 
+    /**
+     * Status
+     */
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status;
