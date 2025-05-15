@@ -2,6 +2,8 @@ package fr.diginamic.app.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 /**
  * Représente un employé
  * Le nom de sa table en base de données est " employees "
@@ -68,6 +70,19 @@ public class Employee {
      */
     @Column(name = "empl_rtt_balance")
     private float emplRttBalance;
+
+    /**
+     * Liste les jours de congé communs de l'employé
+     */
+    @ManyToMany(mappedBy = "employees")
+    private List<CommonDayOff> commonDayOffList;
+
+    /**
+     * Liste les jour Personel de l'employé
+     */
+    @OneToMany( mappedBy = "employee", orphanRemoval = true)
+    private List<PersonalDayOff> personalDayOffList;
+
 
     public Employee(){}
 
