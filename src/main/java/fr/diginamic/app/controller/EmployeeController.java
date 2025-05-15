@@ -43,7 +43,7 @@ public class EmployeeController {
      * @return Liste des employé
      */
     @GetMapping
-    @Secured("ROLE_MANAGER")
+    @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
     public List<EmployeeDto> getAllEmployes() {
         return employeService.findAll()
                 .stream()
@@ -57,7 +57,7 @@ public class EmployeeController {
      * @return un Employé
      */
     @GetMapping("/id/{id}")
-    @Secured("ROLE_MANAGER")
+    @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
     public EmployeeDto getEmployeeById(@PathVariable Long id) {
         return employeService.findById(id)
                 .map(EmployeeMapper::toDto)
@@ -70,7 +70,7 @@ public class EmployeeController {
      * @return list d'employé
      */
     @GetMapping("/role/{role}")
-    @Secured("ROLE_MANAGER")
+    @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
     public List<EmployeeDto> getEmployeeByRole(@PathVariable Role role) {
         return employeService.findByRole(role)
                 .stream()
@@ -84,7 +84,7 @@ public class EmployeeController {
      * @return liste d'employé
      */
     @GetMapping("departement/{dept}")
-    @Secured("ROLE_MANAGER")
+    @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
     public List<EmployeeDto> getEmployeeByDepartment(@PathVariable Departement dept) {
         return employeService.findByDepartement(dept)
                 .stream()
