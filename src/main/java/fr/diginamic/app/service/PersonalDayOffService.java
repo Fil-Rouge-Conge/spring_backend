@@ -16,5 +16,5 @@ public interface PersonalDayOffService {
 
     void delete(Long id);
 
-    List<PersonalDayOff> findByUserId(Long userId);
+    List<PersonalDayOff> findByEmployeeId(Long userId);
 }
