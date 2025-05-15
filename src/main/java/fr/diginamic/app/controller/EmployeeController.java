@@ -8,6 +8,7 @@ import fr.diginamic.app.model.Employee;
 import fr.diginamic.app.model.Role;
 import fr.diginamic.app.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class EmployeeController {
      * @return L'employé créé, converti en DTO.
      */
     @PostMapping
+    @Secured("ROLE_ADMIN")
     public EmployeeDto createEmploye(@RequestBody EmployeeDto employeDto) {
         Employee employee = EmployeeMapper.toEntity(employeDto);
         return EmployeeMapper.toDto(employeService.save(employee));
@@ -41,6 +43,7 @@ public class EmployeeController {
      * @return Liste des employé
      */
     @GetMapping
+    @Secured("ROLE_MANAGER")
     public List<EmployeeDto> getAllEmployes() {
         return employeService.findAll()
                 .stream()
@@ -54,6 +57,7 @@ public class EmployeeController {
      * @return un Employé
      */
     @GetMapping("/id/{id}")
+    @Secured("ROLE_MANAGER")
     public EmployeeDto getEmployeeById(@PathVariable Long id) {
         return employeService.findById(id)
                 .map(EmployeeMapper::toDto)
@@ -66,6 +70,7 @@ public class EmployeeController {
      * @return list d'employé
      */
     @GetMapping("/role/{role}")
+    @Secured("ROLE_MANAGER")
     public List<EmployeeDto> getEmployeeByRole(@PathVariable Role role) {
         return employeService.findByRole(role)
                 .stream()
@@ -79,6 +84,7 @@ public class EmployeeController {
      * @return liste d'employé
      */
     @GetMapping("departement/{dept}")
+    @Secured("ROLE_MANAGER")
     public List<EmployeeDto> getEmployeeByDepartment(@PathVariable Departement dept) {
         return employeService.findByDepartement(dept)
                 .stream()
@@ -91,6 +97,7 @@ public class EmployeeController {
      * @param id id de l'employé à supprimé
      */
     @DeleteMapping("/id/{id}")
+    @Secured("ROLE_ADMIN")
     public void deleteEmployee(@PathVariable Long id) {
         employeService.delete(id);
     }
