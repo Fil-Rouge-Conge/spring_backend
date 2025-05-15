@@ -15,7 +15,7 @@ public class PersonalDayOff extends DayOff{
     private PersonalDayOffType personalDayOffType;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
     public PersonalDayOff() {}
