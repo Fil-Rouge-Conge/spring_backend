@@ -172,4 +172,20 @@ public class Employee {
     public void setEmplRttBalance(float emplRttBalance) {
         this.emplRttBalance = emplRttBalance;
     }
+
+    public List<CommonDayOff> getCommonDayOffList() {
+        return commonDayOffList;
+    }
+
+    public void setCommonDayOffList(List<CommonDayOff> commonDayOffList) {
+        this.commonDayOffList = commonDayOffList;
+    }
+
+    public List<PersonalDayOff> getPersonalDayOffList() {
+        return personalDayOffList;
+    }
+
+    public void setPersonalDayOffList(List<PersonalDayOff> personalDayOffList) {
+        this.personalDayOffList = personalDayOffList;
+    }
 }
