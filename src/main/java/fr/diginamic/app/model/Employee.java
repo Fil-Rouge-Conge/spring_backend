@@ -72,12 +72,6 @@ public class Employee {
     private float emplRttBalance;
 
     /**
-     * Liste les jours de congé communs de l'employé
-     */
-    @ManyToMany(mappedBy = "employees")
-    private List<CommonDayOff> commonDayOffList;
-
-    /**
      * Liste les jour Personel de l'employé
      */
     @OneToMany( mappedBy = "employee", orphanRemoval = true)
@@ -171,14 +165,6 @@ public class Employee {
 
     public void setEmplRttBalance(float emplRttBalance) {
         this.emplRttBalance = emplRttBalance;
-    }
-
-    public List<CommonDayOff> getCommonDayOffList() {
-        return commonDayOffList;
-    }
-
-    public void setCommonDayOffList(List<CommonDayOff> commonDayOffList) {
-        this.commonDayOffList = commonDayOffList;
     }
 
     public List<PersonalDayOff> getPersonalDayOffList() {
