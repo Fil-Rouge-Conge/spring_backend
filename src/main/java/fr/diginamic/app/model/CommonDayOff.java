@@ -29,17 +29,6 @@ public class CommonDayOff extends DayOff{
     @Column(name = "commonDayOffType", nullable = false)
     private CommonDayOffType commonDayOffType;
 
-    /**
-     * Liste des employées concernés par ce congé commun
-     */
-    @ManyToMany
-    @JoinTable(
-            name = "employee_common_dayoff",
-            joinColumns = @JoinColumn(name = "common_dayoff_id"),
-            inverseJoinColumns = @JoinColumn(name = "employee_id")
-    )
-    private List<Employee> employees;
-
     public CommonDayOff(){}
 
     public CommonDayOff(LocalDate beginningDate, LocalDate endDate, String reason,
@@ -63,13 +52,5 @@ public class CommonDayOff extends DayOff{
 
     public void setCommonDayOffType(CommonDayOffType commonDayOffType) {
         this.commonDayOffType = commonDayOffType;
-    }
-
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
     }
 }
