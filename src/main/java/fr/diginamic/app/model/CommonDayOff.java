@@ -20,9 +20,9 @@ public class CommonDayOff extends DayOff{
 
     @ManyToMany
     @JoinTable(
-            name = "user_common_dayoff",
+            name = "employee_common_dayoff",
             joinColumns = @JoinColumn(name = "common_dayoff_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
+            inverseJoinColumns = @JoinColumn(name = "employee_id")
     )
     private List<Employee> employees;
 
