@@ -26,7 +26,7 @@ public class CommonDayOffController {
      * @return une liste de CommonDayOff
      */
     @GetMapping
-    @Secured("ROLE_EMPLOYEE")
+    @Secured({"ROLE_EMPLOYEE","ROLE_MANAGER","ROLE_ADMIN"})
     public List<CommonDayOff> getAll(){
         return commonDayOffService.findAll();
     }
@@ -38,7 +38,7 @@ public class CommonDayOffController {
      * @return l'objet CommonDayOff correspondant, ou null s'il n'existe pas
      */
     @GetMapping("/id/{id}")
-    @Secured("ROLE_MANAGER")
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN"})
     public CommonDayOff getById(@PathVariable Long id){
         return commonDayOffService.findById(id).orElse(null);
     }

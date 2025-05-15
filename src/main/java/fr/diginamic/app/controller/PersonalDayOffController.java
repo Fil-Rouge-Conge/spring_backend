@@ -27,7 +27,7 @@ public class PersonalDayOffController {
      * @return une liste de PersonalDayOff
      */
     @GetMapping
-    @Secured("ROLE_ADMIN")
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN"})
     public List<PersonalDayOff> getAll(){
         return personalDayOffService.findAll();
     }
@@ -39,7 +39,7 @@ public class PersonalDayOffController {
      * @return l'objet PersonalDayOff correspondant, ou null s'il n'existe pas
      */
     @GetMapping("/id/{id}")
-    @Secured("ROLE_MANAGER")
+    @Secured({"ROLE_EMPLOYEE","ROLE_MANAGER","ROLE_ADMIN"})
     public PersonalDayOff getById(@PathVariable Long id){
         return personalDayOffService.findById(id).orElse(null);
     }
@@ -51,7 +51,7 @@ public class PersonalDayOffController {
      * @return le DTO du jour de congé personnel sauvegardé
      */
     @PostMapping
-    @Secured("ROLE_EMPLOYEE")
+    @Secured({"ROLE_EMPLOYEE","ROLE_MANAGER","ROLE_ADMIN"})
     public ResponseEntity<PersonalDayOffDto> create(@RequestBody PersonalDayOffDto dto) {
         PersonalDayOff entity = PersonalDayOffMapper.toEntity(dto);
         PersonalDayOff saved = personalDayOffService.save(entity);
@@ -66,7 +66,7 @@ public class PersonalDayOffController {
      * @return le DTO du jour de congé personnel mis à jour
      */
     @PutMapping("/id/{id}")
-    @Secured("ROLE_EMPLOYEE")
+    @Secured({"ROLE_EMPLOYEE","ROLE_MANAGER","ROLE_ADMIN"})
     public ResponseEntity<PersonalDayOffDto> update(@PathVariable Long id, @RequestBody PersonalDayOffDto dto) {
         PersonalDayOff entity = PersonalDayOffMapper.toEntity(dto);
         PersonalDayOff updated = personalDayOffService.update(id, entity);
@@ -80,7 +80,7 @@ public class PersonalDayOffController {
      * @return une réponse HTTP sans contenu si la suppression a réussi
      */
     @DeleteMapping("/id/{id}")
-    @Secured("ROLE_EMPLOYEE")
+    @Secured({"ROLE_EMPLOYEE","ROLE_MANAGER","ROLE_ADMIN"})
     public ResponseEntity<Void> delete(@PathVariable Long id){
         personalDayOffService.delete(id);
         return ResponseEntity.noContent().build();
@@ -93,7 +93,7 @@ public class PersonalDayOffController {
      * @return une liste de PersonalDayOffDto associés à l'utilisateur
      */
     @GetMapping("/employee/{employeeId}")
-    @Secured("ROLE_MANAGER")
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN"})
     public List<PersonalDayOffDto> getByEmployee(@PathVariable Long employeeId) {
         return personalDayOffService.findByEmployeeId(employeeId).stream()
                 .map(PersonalDayOffMapper::toDto)
