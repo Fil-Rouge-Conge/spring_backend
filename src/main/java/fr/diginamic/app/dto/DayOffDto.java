@@ -12,42 +12,44 @@ public class DayOffDto {
     private String reason;
     private Status status;
 
+    /**
+     * Getter
+     */
     public Long getId() {
         return id;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public LocalDate getBeginningDate() {
         return beginningDate;
     }
-
-    public void setBeginningDate(LocalDate beginningDate) {
-        this.beginningDate = beginningDate;
-    }
-
     public LocalDate getEndDate() {
         return endDate;
     }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
     public String getReason() {
         return reason;
     }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
     public Status getStatus() {
         return status;
     }
 
+
+
+
+    /**
+     * Setter
+     */
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public void setBeginningDate(LocalDate beginningDate) {
+        this.beginningDate = beginningDate;
+    }
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
     public void setStatus(Status status) {
         this.status = status;
     }
