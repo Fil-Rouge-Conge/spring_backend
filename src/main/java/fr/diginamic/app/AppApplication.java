@@ -50,7 +50,6 @@ public class AppApplication {
 
 			CommonDayOff commonDayOff = new CommonDayOff(
 					LocalDate.of(2025, 12, 25),LocalDate.of(2025, 12, 25),"Jour de Noël",Status.APPROVED,"Noël", CommonDayOffType.HOLIDAY);
-			commonDayOff.setEmployees(List.of(empl,mng,adm));
 			commonDayOffRepository.save(commonDayOff);
 			System.out.println("CommonDayOff inserted!");
 			System.out.println(employeeRepository.findByEmail("matt@moissa.gg"));
