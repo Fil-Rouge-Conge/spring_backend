@@ -38,6 +38,16 @@ public class CommonDayOff extends DayOff{
         this.commonDayOffType = commonDayOffType;
     }
 
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getCaption() {
         return caption;
     }
