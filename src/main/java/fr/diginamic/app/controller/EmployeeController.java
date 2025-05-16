@@ -26,8 +26,6 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeService;
-    @Autowired
-    private EmployeeService employeeService;
 
     /**
      * Crée un nouvel employé à partir des données du body reçues en JSON.
@@ -37,7 +35,7 @@ public class EmployeeController {
      */
     @PostMapping
     @Secured("ROLE_ADMIN")
-    public EmployeeDto createEmploye(@RequestBody EmployeeDto employeDto) {
+    public EmployeeDto createEmployee(@RequestBody EmployeeDto employeDto) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         employeDto.setPassword(encoder.encode(employeDto.getPassword()));
         Employee employee = EmployeeMapper.toEntity(employeDto);
@@ -132,7 +130,7 @@ public class EmployeeController {
             Employee existing = employeService.findById(id).orElseThrow(() -> new IllegalArgumentException("Employee not found for id " + id));
             employeDto.setPassword(existing.getPassword());
         }
-        Employee updated = employeeService.update(id, EmployeeMapper.toEntity(employeDto));
+        Employee updated = employeService.update(id, EmployeeMapper.toEntity(employeDto));
         return EmployeeMapper.toDto(updated);
     }
 
