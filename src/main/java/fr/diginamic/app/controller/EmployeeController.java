@@ -120,6 +120,13 @@ public class EmployeeController {
         return empl.getEmplRttBalance();
     }
 
+
+    /**
+     * Mettre à jour un employé déjà existant
+     * @param id l'identifiant de l'employée que l'on veut mettre à jour
+     * @param employeDto les nouvelles informations de l'employée
+     * @return la réponse contenant les informations de l'employée mise à jour
+     */
     @PutMapping("/id/{id}")
     @Secured("ROLE_ADMIN")
     public EmployeeDto updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeDto) {

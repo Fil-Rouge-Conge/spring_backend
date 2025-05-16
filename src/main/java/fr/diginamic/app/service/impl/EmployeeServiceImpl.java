@@ -45,22 +45,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findByEmail(email);
     }
 
-    @Override
-    public Employee update(Long id, Employee updatedEmployee) {
-        Employee existing = employeeRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Employé introuvable avec l'id : " + id));
-
-        existing.setLastName(updatedEmployee.getLastName());
-        existing.setFirstName(updatedEmployee.getFirstName());
-        existing.setEmail(updatedEmployee.getEmail());
-        existing.setPassword(updatedEmployee.getPassword());
-        existing.setRole(updatedEmployee.getRole());
-        existing.setDepartement(updatedEmployee.getDepartement());
-        existing.setDaysoffBalance(updatedEmployee.getDaysoffBalance());
-        existing.setEmplRttBalance(updatedEmployee.getEmplRttBalance());
-
-        return employeeRepository.save(existing);
-    }
 
     @Override
     public Employee update(Long id, Employee updatedEmployee) {
