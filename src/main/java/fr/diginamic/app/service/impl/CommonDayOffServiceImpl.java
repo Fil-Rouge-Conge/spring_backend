@@ -55,7 +55,7 @@ public class CommonDayOffServiceImpl implements CommonDayOffService {
         existing.setCaption(commonDayOff.getCaption());
         existing.setCommonDayOffType(commonDayOff.getCommonDayOffType());
         existing.setStatus(Status.INITIAL);
-        return commonDayOffRepository.save(commonDayOff);
+        return commonDayOffRepository.save(existing);
     }
 
     @Override
