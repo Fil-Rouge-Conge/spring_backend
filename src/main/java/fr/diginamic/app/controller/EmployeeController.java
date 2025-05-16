@@ -10,6 +10,7 @@ import fr.diginamic.app.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeService;
+    @Autowired
+    private EmployeeService employeeService;
 
     /**
      * Crée un nouvel employé à partir des données du body reçues en JSON.
@@ -35,6 +38,8 @@ public class EmployeeController {
     @PostMapping
     @Secured("ROLE_ADMIN")
     public EmployeeDto createEmploye(@RequestBody EmployeeDto employeDto) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        employeDto.setPassword(encoder.encode(employeDto.getPassword()));
         Employee employee = EmployeeMapper.toEntity(employeDto);
         return EmployeeMapper.toDto(employeService.save(employee));
     }
@@ -115,6 +120,20 @@ public class EmployeeController {
     public float getSoldeRTT(Authentication auth) {
         Employee empl = employeService.findByEmail(auth.getName()).orElseThrow();
         return empl.getEmplRttBalance();
+    }
+
+    @PutMapping("/id/{id}")
+    @Secured("ROLE_ADMIN")
+    public EmployeeDto updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeDto) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (employeDto.getPassword() != null && !employeDto.getPassword().isBlank()) {
+            employeDto.setPassword(encoder.encode(employeDto.getPassword()));
+        } else {
+            Employee existing = employeService.findById(id).orElseThrow(() -> new IllegalArgumentException("Employee not found for id " + id));
+            employeDto.setPassword(existing.getPassword());
+        }
+        Employee updated = employeeService.update(id, EmployeeMapper.toEntity(employeDto));
+        return EmployeeMapper.toDto(updated);
     }
 
     /**

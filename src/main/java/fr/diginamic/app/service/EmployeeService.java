@@ -13,5 +13,7 @@ public interface EmployeeService {
     Optional<Employee> findById(Long id);
     List<Employee> findByRole(Role role);
     List<Employee> findByDepartement(Departement department);
+    Optional<Employee> findByEmail(String email);
+    Employee update(Long id, Employee user);
     void delete(Long id);
 }
