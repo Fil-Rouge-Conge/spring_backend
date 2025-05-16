@@ -40,6 +40,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findByRole(role);
     }
 
+    public Optional<Employee> findByEmail(String email) {
+        return employeeRepository.findByEmail(email);
+    }
+
     @Override
     public void delete(Long id) {
         employeeRepository.deleteById(id);

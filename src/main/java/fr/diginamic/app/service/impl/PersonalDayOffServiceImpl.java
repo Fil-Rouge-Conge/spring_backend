@@ -43,8 +43,14 @@ public class PersonalDayOffServiceImpl implements PersonalDayOffService {
             throw new IllegalStateException("Impossible to update personal day off. Check Status");
         }
         validate(updated);
-        updated.setStatus(Status.INITIAL);
-        return personalDayOffRepository.save(updated);
+        return personalDayOffRepository.findById(id).map(existingDayOff -> {
+            existingDayOff.setBeginningDate(updated.getBeginningDate());
+            existingDayOff.setEndDate(updated.getEndDate());
+            existingDayOff.setReason(updated.getReason());
+            existingDayOff.setStatus(Status.INITIAL);
+            existingDayOff.setPersonalDayOffType(updated.getPersonalDayOffType());
+            return personalDayOffRepository.save(existingDayOff);
+                }).orElseThrow(() -> new EntityNotFoundException("Personal Day Off not found"));
     }
 
     @Override
