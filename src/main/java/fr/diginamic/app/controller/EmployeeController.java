@@ -93,6 +93,11 @@ public class EmployeeController {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Récupere le solde des jours de congé payéee
+     * @param auth
+     * @return
+     */
     @GetMapping("/soldeConge")
     @Secured({"ROLE_EMPLOYEE","ROLE_MANAGER","ROLE_ADMIN"})
     public float getSoldeConge(Authentication auth) {
@@ -100,6 +105,11 @@ public class EmployeeController {
         return empl.getDaysoffBalance();
     }
 
+    /**
+     * Récupere le solde des RTT
+     * @param auth
+     * @return
+     */
     @GetMapping("/soldeRTT")
     @Secured({"ROLE_EMPLOYEE","ROLE_MANAGER","ROLE_ADMIN"})
     public float getSoldeRTT(Authentication auth) {
