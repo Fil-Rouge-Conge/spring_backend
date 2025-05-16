@@ -26,8 +26,6 @@ public class PersonalDayOff extends DayOff{
     /**
      * Id de l'employée concerné par ce congé
      */
-
-
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;

@@ -9,6 +9,7 @@ import fr.diginamic.app.model.Role;
 import fr.diginamic.app.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -83,13 +84,37 @@ public class EmployeeController {
      * @param dept om du département
      * @return liste d'employé
      */
-    @GetMapping("departement/{dept}")
+    @GetMapping("/departement/{dept}")
     @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
     public List<EmployeeDto> getEmployeeByDepartment(@PathVariable Departement dept) {
         return employeService.findByDepartement(dept)
                 .stream()
                 .map(EmployeeMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Récupere le solde des jours de congé payéee
+     * @param auth
+     * @return
+     */
+    @GetMapping("/soldeConge")
+    @Secured({"ROLE_EMPLOYEE","ROLE_MANAGER","ROLE_ADMIN"})
+    public float getSoldeConge(Authentication auth) {
+        Employee empl = employeService.findByEmail(auth.getName()).orElseThrow();
+        return empl.getDaysoffBalance();
+    }
+
+    /**
+     * Récupere le solde des RTT
+     * @param auth
+     * @return
+     */
+    @GetMapping("/soldeRTT")
+    @Secured({"ROLE_EMPLOYEE","ROLE_MANAGER","ROLE_ADMIN"})
+    public float getSoldeRTT(Authentication auth) {
+        Employee empl = employeService.findByEmail(auth.getName()).orElseThrow();
+        return empl.getEmplRttBalance();
     }
 
     /**

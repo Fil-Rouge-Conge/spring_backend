@@ -4,6 +4,7 @@ import fr.diginamic.app.model.PersonalDayOffType;
 
 public class PersonalDayOffDto extends DayOffDto {
     private PersonalDayOffType personalDayOffType;
+    private EmployeeDto employee;
 
     /**
      * Getter
