@@ -2,6 +2,7 @@ package fr.diginamic.app.controller;
 
 import fr.diginamic.app.dto.PersonalDayOffDto;
 import fr.diginamic.app.dto.PersonalDayOffMapper;
+import fr.diginamic.app.model.Departement;
 import fr.diginamic.app.model.Employee;
 import fr.diginamic.app.model.PersonalDayOff;
 import fr.diginamic.app.model.Status;
@@ -46,10 +47,17 @@ public class PersonalDayOffController {
      * @param id l'identifiant du jour de congé personnel
      * @return l'objet PersonalDayOff correspondant, ou null s'il n'existe pas
      */
+
     @GetMapping("/id/{id}")
     @Secured({"ROLE_EMPLOYEE","ROLE_MANAGER","ROLE_ADMIN"})
     public PersonalDayOff getById(@PathVariable Long id){
         return personalDayOffService.findById(id).orElse(null);
+    }
+
+    @GetMapping("/dpt/{dpt}")
+    @Secured("ROLE_MANAGER")
+    public List<PersonalDayOff> getByDpt(@PathVariable String dpt){
+        return personalDayOffService.getByDepartement(Departement.valueOf(dpt.toUpperCase()));
     }
 
     /**

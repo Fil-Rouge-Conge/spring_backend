@@ -1,5 +1,7 @@
 package fr.diginamic.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -11,6 +13,10 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name="personal_day_off")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 public class PersonalDayOff extends DayOff{
 
     @Id

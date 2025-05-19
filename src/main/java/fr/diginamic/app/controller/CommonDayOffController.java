@@ -1,7 +1,10 @@
 package fr.diginamic.app.controller;
 
 import fr.diginamic.app.model.CommonDayOff;
+import fr.diginamic.app.model.Departement;
+import fr.diginamic.app.model.PersonalDayOff;
 import fr.diginamic.app.service.CommonDayOffService;
+import fr.diginamic.app.service.PersonalDayOffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -19,6 +22,8 @@ public class CommonDayOffController {
 
     @Autowired
     private CommonDayOffService commonDayOffService;
+    @Autowired
+    private PersonalDayOffService personalDayOffService;
 
     /**
      * Récupère tous les jours de congé communs.

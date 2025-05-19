@@ -1,5 +1,6 @@
 package fr.diginamic.app.service;
 
+import fr.diginamic.app.model.Departement;
 import fr.diginamic.app.model.PersonalDayOff;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public interface PersonalDayOffService {
     PersonalDayOff update(Long id, PersonalDayOff personalDayOff);
 
     void delete(Long id);
+
+    List<PersonalDayOff> getByDepartement(Departement departement);
 
     List<PersonalDayOff> findByEmployeeId(Long userId);
 }

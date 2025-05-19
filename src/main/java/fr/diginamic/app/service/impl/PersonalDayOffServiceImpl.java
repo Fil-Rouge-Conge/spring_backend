@@ -1,5 +1,6 @@
 package fr.diginamic.app.service.impl;
 
+import fr.diginamic.app.model.Departement;
 import fr.diginamic.app.model.PersonalDayOff;
 import fr.diginamic.app.model.PersonalDayOffType;
 import fr.diginamic.app.model.Status;
@@ -56,8 +57,13 @@ public class PersonalDayOffServiceImpl implements PersonalDayOffService {
     @Override
     public void delete(Long id) {
         PersonalDayOff existing = personalDayOffRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Personal Day Off not found"));
-        // Ajouter la logique pour recréditer le solde des congés d'un employé?
+        // TODO Ajouter la logique pour recréditer le solde des congés d'un employé?
         personalDayOffRepository.deleteById(id);
+    }
+
+    @Override
+    public List<PersonalDayOff> getByDepartement(Departement departement) {
+        return personalDayOffRepository.findByEmployee_Departement(departement);
     }
 
     private void validate(PersonalDayOff absence) {
