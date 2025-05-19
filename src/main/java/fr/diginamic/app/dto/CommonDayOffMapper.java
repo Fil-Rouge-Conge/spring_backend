@@ -10,7 +10,7 @@ public class CommonDayOffMapper {
             dto.setEndDate(commonDayOff.getEndDate());
             dto.setReason(commonDayOff.getReason());
             dto.setStatus(commonDayOff.getStatus());
-            dto.setCommonDayOffType(commonDayOff.getCommonDayOffType());
+            dto.setCommonDayOffType(commonDayOff.getType());
             dto.setCaption(commonDayOff.getCaption());
             return dto;
     }

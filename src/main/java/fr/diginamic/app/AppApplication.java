@@ -38,10 +38,6 @@ public class AppApplication {
 			Employee adm = new Employee("Rouille", "Pat", "pat@rouille.gg", encoder.encode("Patrouille"), Role.ADMIN, Departement.HR , 5, 0);
 			employeeRepository.save(adm);
 
-//			DayOff dayOff = new DayOff(LocalDate.of(2025,6,10),LocalDate.of(2025,6,12), "Vacances d'été", Status.INITIAL);
-//			dayOffRepository.save(dayOff);
-//			System.out.println("DayOff inserted!");
-
 			PersonalDayOff personalDayOff = new PersonalDayOff(
 					LocalDate.of(2025, 8, 15),LocalDate.of(2025, 8, 15),"Raison perso", Status.INITIAL, PersonalDayOffType.RTT_EMPLOYEE);
 			personalDayOff.setEmployee(empl);

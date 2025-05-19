@@ -9,8 +9,7 @@ import java.time.LocalDate;
  * Le nom de sa table en base de données est " dayoffs "
  */
 @Entity
-@Table(name = "dayoffs")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class DayOff {
 
     /**

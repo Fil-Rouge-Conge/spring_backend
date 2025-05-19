@@ -61,13 +61,13 @@ public class PersonalDayOffServiceImpl implements PersonalDayOffService {
     }
 
     private void validate(PersonalDayOff absence) {
-        if (absence.getBeginningDate() == null || absence.getEndDate() == null || absence.getPersonalDayOffType() == null) {
+        if (absence.getBeginningDate() == null || absence.getEndDate() == null || absence.getType() == null) {
             throw new IllegalArgumentException("Mandatory Information required : Beginning Date, End Date and Type");
         }
         if (absence.getBeginningDate().isAfter(absence.getEndDate())) {
             throw new IllegalArgumentException("End Date must be after the Beginning Date");
         }
-        if (absence.getPersonalDayOffType() == PersonalDayOffType.UNPAID_DAY_OFF && (absence.getReason() == null || absence.getReason().isEmpty())) {
+        if (absence.getType() == PersonalDayOffType.UNPAID_DAY_OFF && (absence.getReason() == null || absence.getReason().isEmpty())) {
             throw new IllegalArgumentException("Reason is mandatory for Unpaid Day Off");
         }
     }

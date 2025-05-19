@@ -10,8 +10,6 @@ import java.util.List;
  */
 @Entity
 @Table(name = "employees")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "employee_type")
 public class Employee {
 
     /**
@@ -76,7 +74,6 @@ public class Employee {
      */
     @OneToMany( mappedBy = "employee", orphanRemoval = true)
     private List<PersonalDayOff> personalDayOffList;
-
 
     public Employee(){}
 
