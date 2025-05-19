@@ -45,7 +45,7 @@ public class CommonDayOffServiceImpl implements CommonDayOffService {
     public CommonDayOff update (Long id, CommonDayOff commonDayOff) {
         CommonDayOff existing = commonDayOffRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Common Day Off not found"));
-        if (existing.getStatus() == Status.APPROVED && existing.getCommonDayOffType().name().equals("RTT_EMPLOYER")) {
+        if (existing.getStatus() == Status.APPROVED && existing.getType().name().equals("RTT_EMPLOYER")) {
             throw new IllegalArgumentException("Cannot modify a validated RTT");
         }
         validateBusinessRules(commonDayOff);
@@ -53,7 +53,7 @@ public class CommonDayOffServiceImpl implements CommonDayOffService {
         existing.setEndDate(commonDayOff.getEndDate());
         existing.setReason(commonDayOff.getReason());
         existing.setCaption(commonDayOff.getCaption());
-        existing.setCommonDayOffType(commonDayOff.getCommonDayOffType());
+        existing.setType(commonDayOff.getType());
         existing.setStatus(Status.INITIAL);
         return commonDayOffRepository.save(existing);
     }
@@ -66,7 +66,7 @@ public class CommonDayOffServiceImpl implements CommonDayOffService {
         if (existing.getBeginningDate().isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("Cannot delete a day off in the past");
         }
-        if (existing.getCommonDayOffType().name().equals("RTT_EMPLOYER") && existing.getStatus() == Status.APPROVED) {
+        if (existing.getType().name().equals("RTT_EMPLOYER") && existing.getStatus() == Status.APPROVED) {
             List<Employee> employees = employeeRepository.findAll();
             for (Employee employee : employees) {
                 employee.setEmplRttBalance(employee.getEmplRttBalance() + 1);
@@ -86,7 +86,7 @@ public class CommonDayOffServiceImpl implements CommonDayOffService {
         }
 
         DayOfWeek day = commonDayOff.getBeginningDate().getDayOfWeek();
-        if (commonDayOff.getCommonDayOffType().name().equals("RTT_EMPLOYER") && (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY)) {
+        if (commonDayOff.getType().name().equals("RTT_EMPLOYER") && (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY)) {
             throw new IllegalArgumentException("RTT cannot be set on weekends");
         }
     }

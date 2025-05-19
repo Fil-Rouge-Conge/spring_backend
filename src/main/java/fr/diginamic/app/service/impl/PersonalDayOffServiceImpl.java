@@ -48,7 +48,7 @@ public class PersonalDayOffServiceImpl implements PersonalDayOffService {
             existingDayOff.setEndDate(updated.getEndDate());
             existingDayOff.setReason(updated.getReason());
             existingDayOff.setStatus(Status.INITIAL);
-            existingDayOff.setPersonalDayOffType(updated.getPersonalDayOffType());
+            existingDayOff.setType(updated.getType());
             return personalDayOffRepository.save(existingDayOff);
                 }).orElseThrow(() -> new EntityNotFoundException("Personal Day Off not found"));
     }
