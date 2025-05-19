@@ -38,11 +38,17 @@ public class AppApplication {
 			Employee adm = new Employee("Rouille", "Pat", "pat@rouille.gg", encoder.encode("Patrouille"), Role.ADMIN, Departement.HR , 5, 0);
 			employeeRepository.save(adm);
 
-			PersonalDayOff personalDayOff = new PersonalDayOff(
+			PersonalDayOff personalDayOff1 = new PersonalDayOff(
 					LocalDate.of(2025, 8, 15),LocalDate.of(2025, 8, 15),"Raison perso", Status.INITIAL, PersonalDayOffType.RTT_EMPLOYEE);
-			personalDayOff.setEmployee(empl);
-			personalDayOffRepository.save(personalDayOff);
-			System.out.println("PersonalDayOff inserted!");
+			personalDayOff1.setEmployee(empl);
+			personalDayOffRepository.save(personalDayOff1);
+			System.out.println("PersonalDayOff1 inserted!");
+
+			PersonalDayOff personalDayOff2 = new PersonalDayOff(
+					LocalDate.of(2025, 7, 15),LocalDate.of(2025, 7, 29),"Vacances été", Status.WAITING_FOR_APPROVAL, PersonalDayOffType.PAID_DAY_OFF);
+			personalDayOff2.setEmployee(empl);
+			personalDayOffRepository.save(personalDayOff2);
+			System.out.println("PersonalDayOff2 inserted!");
 
 			CommonDayOff commonDayOff = new CommonDayOff(
 					LocalDate.of(2025, 12, 25),LocalDate.of(2025, 12, 25),"Jour de Noël",Status.APPROVED,"Noël", CommonDayOffType.HOLIDAY);

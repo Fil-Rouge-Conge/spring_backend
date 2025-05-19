@@ -63,7 +63,9 @@ public class PersonalDayOffServiceImpl implements PersonalDayOffService {
 
     @Override
     public List<PersonalDayOff> getByDepartement(Departement departement) {
-        return personalDayOffRepository.findByEmployee_Departement(departement);
+        List<Status> statuses = List.of(Status.WAITING_FOR_APPROVAL, Status.DENIED);
+        return personalDayOffRepository.findByEmployee_DepartementAndStatusIn(departement, statuses);
+//        return personalDayOffRepository.findByEmployee_Departement(departement);
     }
 
     private void validate(PersonalDayOff absence) {

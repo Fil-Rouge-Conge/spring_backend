@@ -84,13 +84,14 @@ public class EmployeeController {
 
     /**
      * Récupère la liste des employés selon leur département
-     * @param dept om du département
+     * @param dpt nom du département
      * @return liste d'employé
      */
-    @GetMapping("/departement/{dept}")
-    @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
-    public List<EmployeeDto> getEmployeeByDepartment(@PathVariable Departement dept) {
-        return employeService.findByDepartement(dept)
+    @GetMapping("/dpt/{dpt}")
+    @Secured("ROLE_MANAGER")
+    public List<EmployeeDto> getEmployeeByDepartment(@PathVariable String dpt) {
+        Departement departement = Departement.valueOf(dpt.toUpperCase());
+        return employeService.findByDepartement(departement)
                 .stream()
                 .map(EmployeeMapper::toDto)
                 .collect(Collectors.toList());

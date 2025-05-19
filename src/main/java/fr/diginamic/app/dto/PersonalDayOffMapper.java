@@ -10,7 +10,8 @@ public class PersonalDayOffMapper {
             dto.setEndDate(personalDayOff.getEndDate());
             dto.setReason(personalDayOff.getReason());
             dto.setStatus(personalDayOff.getStatus());
-            dto.setPersonalDayOffType(personalDayOff.getType());
+            dto.setType(personalDayOff.getType());
+            dto.setEmployee(EmployeeMapper.toDto(personalDayOff.getEmployee()));
             return dto;
     }
 
@@ -20,7 +21,7 @@ public class PersonalDayOffMapper {
                 dto.getEndDate(),
                 dto.getReason(),
                 dto.getStatus(),
-                dto.getPersonalDayOffType()
+                dto.getType()
         );
     }
 }

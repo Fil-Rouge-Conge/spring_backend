@@ -1,5 +1,6 @@
 package fr.diginamic.app.controller;
 
+import fr.diginamic.app.dto.EmployeeMapper;
 import fr.diginamic.app.dto.PersonalDayOffDto;
 import fr.diginamic.app.dto.PersonalDayOffMapper;
 import fr.diginamic.app.model.Departement;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service de gestion des jours de congés personnels des employés.
@@ -54,10 +56,20 @@ public class PersonalDayOffController {
         return personalDayOffService.findById(id).orElse(null);
     }
 
+
+    /**
+     * Récupère tous les jours de congés personnels d'un département
+     *
+     * @param dpt le nom du département
+     * @return liste d'objects PersonalDayOff correspondants
+     */
     @GetMapping("/dpt/{dpt}")
     @Secured("ROLE_MANAGER")
-    public List<PersonalDayOff> getByDpt(@PathVariable String dpt){
-        return personalDayOffService.getByDepartement(Departement.valueOf(dpt.toUpperCase()));
+    public List<PersonalDayOffDto> getByDpt(@PathVariable String dpt) {
+        Departement departement = Departement.valueOf(dpt.toUpperCase());
+        return personalDayOffService.getByDepartement(departement).stream()
+                .map(PersonalDayOffMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     /**
