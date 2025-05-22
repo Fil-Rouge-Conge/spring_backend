@@ -22,8 +22,6 @@ public class CommonDayOffController {
 
     @Autowired
     private CommonDayOffService commonDayOffService;
-    @Autowired
-    private PersonalDayOffService personalDayOffService;
 
     /**
      * Récupère tous les jours de congé communs.

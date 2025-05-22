@@ -88,7 +88,7 @@ public class EmployeeController {
      * @return liste d'employé
      */
     @GetMapping("/dpt/{dpt}")
-    @Secured("ROLE_MANAGER")
+    @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
     public List<EmployeeDto> getEmployeeByDepartment(@PathVariable String dpt) {
         Departement departement = Departement.valueOf(dpt.toUpperCase());
         return employeService.findByDepartement(departement)
