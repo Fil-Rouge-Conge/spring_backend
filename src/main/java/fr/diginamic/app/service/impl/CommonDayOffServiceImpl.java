@@ -77,10 +77,18 @@ public class CommonDayOffServiceImpl implements CommonDayOffService {
     }
 
     private void validateBusinessRules(CommonDayOff commonDayOff) {
+        if (commonDayOff.getBeginningDate() == null || commonDayOff.getEndDate() == null) {
+            throw new IllegalArgumentException("Dates must not be null");
+        }
+
         if (commonDayOff.getBeginningDate().isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("Cannot create common day off in the past");
         }
 
+        if (commonDayOff.getBeginningDate().isAfter(commonDayOff.getEndDate())) {
+            throw new IllegalArgumentException("Start date must be before or equal to end date");
+        }
+        
         if (commonDayOffRepository.existsByBeginningDate(commonDayOff.getBeginningDate())) {
             throw new IllegalArgumentException("Another common day off already exists on this date");
         }
