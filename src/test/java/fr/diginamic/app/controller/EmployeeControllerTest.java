@@ -3,7 +3,6 @@ package fr.diginamic.app.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.diginamic.app.dto.EmployeeDto;
 import fr.diginamic.app.model.Departement;
-import fr.diginamic.app.model.Employee;
 import fr.diginamic.app.model.Role;
 import fr.diginamic.app.service.EmployeeService;
 import org.junit.jupiter.api.MethodOrderer;
@@ -15,13 +14,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.Optional;
-
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -29,12 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc//(addFilters = false)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-/*
-@SqlGroup({
-        @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS, scripts = {"classpath:data_start.sql"}, config = @SqlConfig(transactionMode = SqlConfig.TransactionMode.ISOLATED)),
-        @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_CLASS, scripts = {"classpath:data_end.sql"}, config = @SqlConfig(transactionMode = SqlConfig.TransactionMode.ISOLATED))
-})
- */
 public class EmployeeControllerTest {
 
     @Autowired
@@ -159,7 +148,6 @@ public class EmployeeControllerTest {
 
         //Convertir l'objet en JSON
         ObjectMapper objectMapper = new ObjectMapper();
-        String employeeJson = objectMapper.writeValueAsString(employeeDto);
 
         mockMvc.perform(put("/api/employees/id/" + employeeId)
                         .contentType(MediaType.APPLICATION_JSON)
