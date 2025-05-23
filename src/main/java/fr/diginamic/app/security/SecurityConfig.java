@@ -30,14 +30,27 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
-                );
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                )
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
+
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .requestMatchers("/api/auth/**").permitAll()
+//                        .anyRequest().authenticated()
+//                );
+//        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//        return http.build();
+//    }
 
     /** AuthenticationManager est utilisé pour vérifier le mot de passe de l'utilisateur.
      * Cet authenticationManager utilise {@link CustomUserDetailsService} par défaut

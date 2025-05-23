@@ -2,6 +2,7 @@ package fr.diginamic.app.service.impl;
 
 import fr.diginamic.app.dto.CommonDayOffDto;
 import fr.diginamic.app.model.CommonDayOff;
+import fr.diginamic.app.model.CommonDayOffType;
 import fr.diginamic.app.model.Employee;
 import fr.diginamic.app.model.Status;
 import fr.diginamic.app.repository.CommonDayOffRepository;
@@ -34,6 +35,11 @@ public class CommonDayOffServiceImpl implements CommonDayOffService {
     @Override
     public List<CommonDayOff> findAll() {
         return commonDayOffRepository.findAll();
+    }
+
+    @Override
+    public List<CommonDayOff> findByStatusAndType(Status status, CommonDayOffType type) {
+        return List.of();
     }
 
     @Override

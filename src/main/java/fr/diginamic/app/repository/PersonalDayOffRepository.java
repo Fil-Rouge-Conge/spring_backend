@@ -12,4 +12,5 @@ import java.util.List;
 public interface PersonalDayOffRepository extends JpaRepository<PersonalDayOff, Long> {
     List<PersonalDayOff> findByEmployee_Id(Long employeeId);
     List<PersonalDayOff> findByEmployee_DepartementAndStatusIn(Departement departement, List<Status> statuses);
+//    List<PersonalDayOff> findByStatus(Status status);
 }
