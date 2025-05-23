@@ -26,7 +26,7 @@ public class AppApplication {
 	@Bean
 	CommandLineRunner run(EmployeeRepository employeeRepository, DayOffRepository dayOffRepository, PersonalDayOffRepository personalDayOffRepository, CommonDayOffRepository commonDayOffRepository) {
 		return args -> {
-			/*
+
 			Employee user = new Employee("Ciel", "Madrigal", "ciel.m@gmail.com", encoder.encode("p@ssw0rd"), Role.EMPLOYEE);
 			employeeRepository.save(user);
 			System.out.println("User inserted!");
@@ -57,7 +57,7 @@ public class AppApplication {
 			System.out.println("CommonDayOff inserted!");
 			System.out.println(employeeRepository.findByEmail("matt@moissa.gg"));
 			System.out.println("employee found");
-		*/
+
 		};
 	}
 }

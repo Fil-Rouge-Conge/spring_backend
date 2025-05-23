@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
-@AutoConfigureMockMvc//(addFilters = false)
+@AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EmployeeControllerTest {
 
@@ -52,10 +52,9 @@ public class EmployeeControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String employeeJson = objectMapper.writeValueAsString(employeeDto);
 
-
         MvcResult result = mockMvc.perform(post("/api/employees")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(employeeJson))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(employeeJson))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -81,7 +80,7 @@ public class EmployeeControllerTest {
     void testGetId() throws Exception {
 
         mockMvc.perform(get("/api/employees/id/" + employeeId)
-                    .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(jsonPath("$.id").value(employeeId))
@@ -94,7 +93,7 @@ public class EmployeeControllerTest {
     @Order(4)
     void testGetEmployeeByRole() throws Exception {
         mockMvc.perform(get("/api/employees/role/EMPLOYEE")
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[?(@.email == 'rememba@me.gg')]").exists());
     }
@@ -113,7 +112,6 @@ public class EmployeeControllerTest {
     @WithMockUser(username = "rememba@me.gg",password = "123456", roles = "ADMIN")
     @Order(6)
     void testGetSolde() throws Exception {
-
         mockMvc.perform(get("/api/employees/soldeConge")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -124,7 +122,6 @@ public class EmployeeControllerTest {
     @WithMockUser(username = "rememba@me.gg",password = "123456", roles = "ADMIN")
     @Order(7)
     void testGetSoldeRTT() throws Exception {
-
         mockMvc.perform(get("/api/employees/soldeRTT")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -135,7 +132,6 @@ public class EmployeeControllerTest {
     @WithMockUser(roles = "ADMIN")
     @Order(8)
     void testUpdateEmployee() throws Exception {
-
         EmployeeDto updatedEmployeeDto = new EmployeeDto();
         updatedEmployeeDto.setFirstName("Rememba");
         updatedEmployeeDto.setLastName("Me");
@@ -164,5 +160,4 @@ public class EmployeeControllerTest {
         mockMvc.perform(delete("/api/employees/id/" + employeeId))
                 .andExpect(status().isOk());
     }
-
 }
